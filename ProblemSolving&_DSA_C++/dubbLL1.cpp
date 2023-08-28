@@ -33,17 +33,17 @@ void printNodes(Node* head){
 }
 
 //gives lenght of linked list( we could also use int func to return len)
-void getListLength(Node* head){
+int getListLength(Node* head){
     Node* tempLen = head;
     int cnt=0;
     while(tempLen != NULL){
         tempLen = tempLen -> next;
         cnt++;
     }
-    cout<<"Lenght of List is = "<<cnt<<endl;
+    return cnt;
 }
 
-//Inserting a node in doubly linked list
+//Inserting a new node at head in doubly linked list
 void insertAtHead(Node* &head, int d){
     //step1: create a new node temp;
     Node* temp = new Node(d);
@@ -70,6 +70,40 @@ void insertAtTail(Node* &tail, int d){
 
 }
 
+void insertAtPosition(Node* &head, Node* &tail, int pos, int d){
+    //Step1: Create a new node temp 
+    Node* temp = new Node(d);
+
+    //if inserting at pos=1, i.e at start position,then,
+    if(pos == 1){
+        insertAtHead(head, d);
+        return;
+    }
+    
+    //Traversing the DLL to insert the elements,
+    Node* before = NULL;
+    Node* after = head;
+    int cnt=1;
+    while(cnt < pos){
+        before  = after;
+        after = after -> next;
+        cnt++;
+    }
+    //
+    if(before == tail){
+        insertAtTail(tail, d);
+        return;
+    }
+
+    //Now we have both before and after nodes of the DLL, then,
+    //insert the new node into the pos by changing the ref
+    temp -> prev = before;
+    temp -> next = before -> next;
+    before -> next = temp;
+    after -> prev = temp;
+
+}
+
 
 int main(){
     
@@ -78,7 +112,7 @@ int main(){
     Node* tail = node1;
 
     printNodes(head);
-    getListLength(head);
+    cout<<"Lenght of the list is = "<<getListLength(head)<<endl;
 
     insertAtHead(head, 9);
     printNodes(head);
@@ -93,6 +127,10 @@ int main(){
     insertAtTail(tail, 11);
     printNodes(head);
 
+    insertAtPosition(head, tail, 6, 7);
+    printNodes(head);
+
+    cout<<"Lenght of the list is = "<<getListLength(head)<<endl;
     cout<<" head "<< head ->data<<endl;
     cout<<" tail "<< tail ->data<<endl;
 
