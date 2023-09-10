@@ -73,6 +73,72 @@ void insertInPosition(Node* &tail, Node* &head, int position, int d){
     
 }
 
+void reverseRecur(Node* &head, Node* curr, Node* prev){
+
+    //case to terminate the recur
+    if(curr == NULL){
+        head = prev;  //base case
+        return;
+    }
+    
+    Node* forward = curr -> next;
+    curr -> next = prev;
+    reverseRecur(head, forward, curr);
+    // cout<<"in loop"<<endl;
+
+
+}
+
+
+Node* reverseLinkedList(Node* &head)
+{
+    // Write your code here
+    Node* curr = head;
+    Node* prev = NULL;
+    reverseRecur(head, curr, prev);
+    return head;
+    
+    // Node* curr = head;
+    // Node* prev = NULL;
+    // Node* forward = NULL;
+
+    // while(curr != NULL){
+    //     forward = curr -> next;
+    //     curr -> next = prev;
+    //     prev = curr;
+    //     curr = forward;
+    // }
+
+    // return prev;
+    
+}
+Node* getMid(Node* head){
+
+    if(head == NULL || head -> next ==NULL){
+        return head;
+    }
+
+    Node* fast = head -> next;
+    Node* slow= head;
+
+    while(fast != NULL){
+        fast = fast -> next;
+        if(fast != NULL){
+            fast = fast ->next;
+        }
+
+        slow = slow -> next;
+    }
+
+    return slow;
+
+}
+
+Node* findMiddle(Node* head){
+   
+    return getMid(head);
+    
+}
 
 
 
@@ -100,6 +166,11 @@ int main(){
 
     insertInPosition(tail, head, 5, 15);
     printNodes(head);
+
+    
+    // printNodes(reverseLinkedList(head));
+
+    cout<<"Middle of LL = "<<findMiddle(head) ->data<<endl;
 
     cout<< "head "<< head ->data<<endl;
     cout<< "tail "<< tail ->data<<endl;

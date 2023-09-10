@@ -49,6 +49,10 @@ void insertAtTail(Node* &tail, int d){
 
 }
 
+
+
+
+
 int main(){
     //creatin a new node
     Node* node1 = new Node(12);
@@ -78,9 +82,13 @@ int main(){
 
     insertAtTail(tail, 16);
     printNode(head);
+    insertAtTail(tail, 17);
+    printNode(head);
+    insertAtTail(tail, 19);
+    printNode(head);
 
-
-
+    reverseLinkedList(head);
+    printNode(head);
     return 0;
 
 }

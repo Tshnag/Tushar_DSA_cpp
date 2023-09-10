@@ -33,6 +33,7 @@ public:
     }
 };
 
+
 void insertAtTail(Node *&tail, int d)
 {
     Node *temp = new Node(d);
