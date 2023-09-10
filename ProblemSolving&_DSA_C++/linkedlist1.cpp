@@ -87,8 +87,7 @@ int main(){
     insertAtTail(tail, 19);
     printNode(head);
 
-    reverseLinkedList(head);
-    printNode(head);
+    
     return 0;
 
 }
