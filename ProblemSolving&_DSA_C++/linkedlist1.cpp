@@ -13,6 +13,17 @@ class Node{
         this -> data = data;
         this -> next = NULL;
     }
+    // ~Node()
+    // {
+    //     int value = this->data;
+    //     // memory free process
+    //     if (this->next != NULL)
+    //     {
+    //         delete next;
+    //         this->next = NULL;
+    //     }
+    //     cout << "memory is free for node with data " << value << endl;
+    // }
 };
  
 void insertAtHead(Node* &head, int d){
@@ -50,12 +61,47 @@ void insertAtTail(Node* &tail, int d){
 }
 
 
+//Remove Duplicates from linked list
+Node* uniqueSortedList(Node* head)
+{
+
+    // empty list
+    if (head == NULL)
+    {
+        return NULL;
+    }
+
+    // Remaining Case
+    Node* curr = head;
+
+    while (curr != NULL)
+    {
+        if ((curr->next != NULL) && (curr->data == curr->next->data))
+        {
+            Node* next_next = curr -> next -> next;   //This step is very important
+            Node* nodeToDelete = curr -> next;
+
+            delete(nodeToDelete);
+            
+            curr->next = next_next;
+        }
+        else // not equal
+        {
+            curr = curr->next;
+        }
+    }
+
+    return head;
+}
+
+
+
 
 
 
 int main(){
     //creatin a new node
-    Node* node1 = new Node(12);
+    Node* node1 = new Node(1);
     //cout<<node1 -> data<<endl; printing the data of new node node1
     //cout<<node1 -> next<<endl; priting the address of new node node1
     
@@ -77,15 +123,25 @@ int main(){
 
     //calling insertAtTail() func
     cout<<"After inserting at tail"<<endl;
-    insertAtTail(tail, 15);
+    insertAtTail(tail, 2);
     printNode(head);
 
-    insertAtTail(tail, 16);
+    insertAtTail(tail, 3);
     printNode(head);
-    insertAtTail(tail, 17);
+    insertAtTail(tail, 4);
     printNode(head);
-    insertAtTail(tail, 19);
+    insertAtTail(tail, 5);
     printNode(head);
+    insertAtTail(tail, 6);
+    printNode(head);
+
+    
+    //printNode(uniqueSortedList(head));  //Remove duplicates
+
+
+
+    cout<<"Head "<<head -> data<<endl;
+    cout<<"Tail "<<tail -> data<<endl;
 
     
     return 0;

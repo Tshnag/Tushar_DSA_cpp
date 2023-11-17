@@ -124,7 +124,66 @@ void printNodes(Node *tail)
 }
 
 
+//Check if list is circular or not
+bool isCircularList(Node* head){
+    //Case-1 : Empty list
+    if(head == NULL){
+        return true;
+    }
 
+    //Case-2: One node
+    if(head ->next == NULL){
+        return false;
+    }
+    else if(head -> next == head){
+        return true;
+    }
+
+    //Case-3: More than one node
+    Node* temp = head -> next;
+    while(temp != NULL && temp != head){
+        temp = temp -> next;
+    }
+
+    if(temp == NULL){
+        return false;
+    }
+
+    if(temp == head){
+        return true;
+    }
+
+
+}
+
+
+void halfOfCircular(Node* tail){
+
+    if(tail == NULL){
+        cout<<"List is empty"<<endl;
+        return;
+    }
+
+
+    //Assuming that the list is sorted 
+    int tempData  = tail -> data;
+    tempData = tempData/2;
+    cout<<"Half of list is "<<tempData<<endl;
+
+    Node* temp = tail -> next;
+    while(temp -> data != tempData){
+        temp = temp -> next;
+    }
+
+    Node* curr = temp;
+    temp = temp -> next;
+    curr -> next = tail -> next;
+    tail -> next = temp;
+
+    printNodes(curr -> next);
+    printNodes(temp);
+
+}
 
 
 int main()
@@ -132,25 +191,32 @@ int main()
 
     Node *tail = NULL;
 
-    insertNode(tail, 3, 3);
+    insertNode(tail, 6, 6);
     printNodes(tail);
 
-    insertNode(tail, 3, 5);
+    insertNode(tail, 6, 1);
     printNodes(tail);
 
-    insertNode(tail, 5, 8);
+    insertNode(tail, 1, 2);
     printNodes(tail);
 
-    insertNode(tail, 5, 6);
-    printNodes(tail);
-
-    insertNode(tail, 6, 7);
+    insertNode(tail, 2, 3);
     printNodes(tail);
 
     insertNode(tail, 3, 4);
     printNodes(tail);
 
+    insertNode(tail, 4, 5);
+    printNodes(tail);
 
+    // if (isCircularList(tail))
+    // {
+    //     cout<<"This is a Circular List"<<endl;
+    // }
+    
+
+    halfOfCircular(tail);
+    
 
     cout << "Tail = " << tail->data << endl;
 

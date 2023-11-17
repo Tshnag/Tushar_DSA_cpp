@@ -15,6 +15,18 @@ public:
         this->data = data;
         this->next = NULL;
     }
+
+    ~Node()
+    {
+        int value = this->data;
+        // memory free process
+        if (this->next != NULL)
+        {
+            delete next;
+            this->next = NULL;
+        }
+        cout << "memory is free for node with data " << value << endl;
+    }
 };
 
 void insertAtHead(Node *&head, int d)
@@ -79,8 +91,7 @@ void insertInPosition(Node *&tail, Node *&head, int position, int d)
     tempTrav->next = tempPos;
 }
 
-
-//Reverse a Linked List:-
+// Reverse a Linked List:-
 void reverseRecur(Node *&head, Node *curr, Node *prev)
 {
 
@@ -188,6 +199,7 @@ bool isCircularList(Node *head)
     }
 }
 
+// Detect cycle or loop
 Node *floydDetectLoop(Node *head)
 {
 
@@ -212,41 +224,72 @@ Node *floydDetectLoop(Node *head)
 
         if (slow == fast)
         {
-            cout<<"Cycle is present at "<<slow -> data<<endl;
+            cout << "Cycle is present at " << slow->data << endl;
             return slow;
         }
     }
 
     return NULL;
-
 }
 
+// Unique (no duplicates) sorted list:-
+Node *uniqueSortedList(Node *head)
+{
 
+    // empty list
+    if (head == NULL)
+    {
+        return NULL;
+    }
+
+    // Remaining Case
+    Node *curr = head;
+
+    while (curr != NULL)
+    {
+        if ((curr->next != NULL) && (curr->data == curr->next->data))
+        {
+            Node* duplicate = curr->next;
+            delete(duplicate);
+            curr->next = curr->next->next;
+        }
+        else // not equal
+        {
+            curr = curr->next;
+        }
+    }
+
+    return head;
+}
 
 int main()
 {
 
-    Node *node1 = new Node(10);
+    Node *node1 = new Node(1);
     cout << node1->data << endl;
 
     Node *head = node1;
     Node *tail = node1;
 
-    insertAtTail(tail, 12);
-    // printNodes(head);
+    // insertAtTail(tail, 12);
+    //  printNodes(head);
 
-    insertAtTail(tail, 14);
-    // printNodes(head);
+    // insertAtTail(tail, 14);
+    //  printNodes(head);
 
     // insertInPosition(head, 3, 13);
     // printNodes(head);
     // insertInPosition(head, 1, 9);
     // printNodes(head);
 
-    insertInPosition(tail, head, 3, 13);
+    insertInPosition(tail, head, 2, 2);
     // printNodes(head);
 
-    insertInPosition(tail, head, 5, 15);
+    insertInPosition(tail, head, 3, 2);
+    printNodes(head);
+    insertInPosition(tail, head, 4, 3);
+    printNodes(head);
+    insertInPosition(tail, head, 5, 4);
     printNodes(head);
 
     // printNodes(reverseLinkedList(head));
@@ -261,11 +304,13 @@ int main()
     //     cout<<"Not a Circular List"<<endl;
     // }
 
-    tail->next = head->next;
-    //printNodes(head);
-    floydDetectLoop(head);  //floydDetectLoop will not always return the starting node of the cycle but will return any node in that cycle
+    // tail->next = head->next;
+    // printNodes(head);
+    // floydDetectLoop(head);  //floydDetectLoop will not always return the starting node of the cycle but will return any node in that cycle
 
-    // cout<< "head "<< head ->data<<endl;
-    // cout<< "tail "<< tail ->data<<endl;
+    printNodes(uniqueSortedList(head));
+
+    cout<< "head "<< head ->data<<endl;
+    cout<< "tail "<< tail ->data<<endl;
     return 0;
 }

@@ -18,7 +18,7 @@ int main()
     cout<<"Order: "<<count<<endl;
     //cout<<"Value of Q: "<<q<<endl; //For reference..
 
-//Checking if armstrong or not..
+    //Checking if armstrong or not..
     q=n;
     while(q != 0)
     {
